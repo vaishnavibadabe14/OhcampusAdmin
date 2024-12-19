@@ -10,6 +10,7 @@
                     <span class="text-white font-medium" style="font-size: 17px;">Entrance Exam</span>
                     <button class="rounded bg-white" mat-stroked-button (click)="back()">Back</button>
                 </div>
+                <!-- {{examForm.value | json}} -->
                 <form [formGroup]="examForm">
                     <div formArrayName="examArrayData">
                         <div *ngFor="let examArrayData of examArrayData().controls; let examIndex = index ">
@@ -41,12 +42,12 @@
 
 
                                     <div class="flex flex-col flex-auto overflow-hidden">
-                                        <mat-form-field class="w-full">
+                                        <mat-form-field class="w-full"  (click)="changeExam(examIndex)">
                                             <mat-label>Exams<span class="red">*</span></mat-label>
                                             <mat-select multiple formControlName="examids" 
                                                         (selectionChange)="changeSelection(examArrayData.value.examids, examIndex)">
                                                 <mat-option>
-                                                    <ngx-mat-select-search [formControl]="searchControl"
+                                                    <ngx-mat-select-search [formControl]="searchControl" 
                                                         placeholderLabel="Search exam here..."
                                                         noEntriesFoundLabel="No exams found">
                                                     </ngx-mat-select-search>
@@ -55,6 +56,11 @@
                                                     {{ item.title }}
                                                 </mat-option>
                                             </mat-select>
+                                            <div *ngIf="searchLoader[examIndex]" class="wrapper-loader">
+                                                <img class="img-fluid"
+                                                      style="width: 30px; margin-left: auto; margin-right: auto;"
+                                                      src="assets/images/icons/page_loader_default5.gif" alt="" class="w30 rounded-full" />
+                                              </div>
                                             <mat-error *ngIf="examArrayData.get('examids').hasError('required')">Please select Exams</mat-error>
                                         </mat-form-field>
                                     

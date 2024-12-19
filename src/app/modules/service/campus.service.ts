@@ -1598,10 +1598,11 @@ export class CampusService {
 
      //------------------------------ getUGCourses ---------------------------------------//
 
-     public getUGCourses(searchUg): Observable<any> {
-        return this.httpClient.post(`${this.apiurl3}Courses/getUGCourses`,
+     public getUGCourses(searchUg,collegeid): Observable<any> {
+        return this.httpClient.post(`${this.apiurl3}Courses/getUGCoursesDropDownList`,
         {
-            searchUg:searchUg
+            searchUg:searchUg,
+            collegeid:collegeid
         }
     )}
 
@@ -1619,28 +1620,33 @@ export class CampusService {
 
      //------------------------------ getPGCourses ---------------------------------------//
 
-     public getPGCourses(searchPg): Observable<any> {
-        return this.httpClient.post(`${this.apiurl3}Courses/getPGCourses`,
+     public getPGCourses(searchPg,collegeid): Observable<any> {
+        return this.httpClient.post(`${this.apiurl3}Courses/getPGCoursesDropDownList`,
         {
-            searchPg:searchPg
+            searchPg:searchPg,
+            collegeid:collegeid
+
         }
     )}
 
           //------------------------------ getDiplomaCourses ---------------------------------------//
 
-          public getDiplomaCourses(searchDp): Observable<any> {
-            return this.httpClient.post(`${this.apiurl3}Courses/getDiplomaCourses`,
+          public getDiplomaCourses(searchDp,collegeid): Observable<any> {
+            return this.httpClient.post(`${this.apiurl3}Courses/getDiplomaCoursesDropdownlist`,
             {
-                searchDp:searchDp
+                searchDp:searchDp,
+                collegeid:collegeid
             }
         )}
 
      //------------------------------ getDoctorialCourses ---------------------------------------//
 
-     public getDoctorialCourses(searchDoc): Observable<any> {
-        return this.httpClient.post(`${this.apiurl3}Courses/getDocCourses`,
+     public getDoctorialCourses(searchDoc,collegeid): Observable<any> {
+        return this.httpClient.post(`${this.apiurl3}Courses/getDocCoursesDropdownlist`,
         {
-            searchDoc:searchDoc
+            searchDoc:searchDoc,
+            collegeid:collegeid
+
 
         }
     )}
@@ -1648,10 +1654,11 @@ export class CampusService {
 
      //------------------------------ getOtherCourses ---------------------------------------//
 
-     public getOtherCourses(searchOther): Observable<any> {
-        return this.httpClient.post(`${this.apiurl3}Courses/getOtherCourses`,
+     public getOtherCourses(searchOther,collegeid): Observable<any> {
+        return this.httpClient.post(`${this.apiurl3}Courses/getOtherCoursesDropdownlist`,
         {
-            searchOther:searchOther
+            searchOther:searchOther,
+            collegeid:collegeid
         }
     )}
 
@@ -1667,10 +1674,11 @@ export class CampusService {
 
       //------------------------------ getAdvMasterCourses ---------------------------------------//
 
-      public getAdvMasterCourses(searcAdvMas): Observable<any> {
-        return this.httpClient.post(`${this.apiurl3}Courses/getAdvMasterCourses`,
+      public getAdvMasterCourses(searcAdvMas,collegeid): Observable<any> {
+        return this.httpClient.post(`${this.apiurl3}Courses/getAdvMasterCoursesdropdownlist`,
         {
-            searcAdvMas:searcAdvMas
+            searcAdvMas:searcAdvMas,
+            collegeid:collegeid
         }
     )}
 

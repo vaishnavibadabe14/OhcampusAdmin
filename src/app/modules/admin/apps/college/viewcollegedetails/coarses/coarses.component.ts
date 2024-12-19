@@ -868,12 +868,12 @@ export class CoarsesComponent implements OnInit {
         // this.bindUgCourses()
         // this.getClgDetailsById();
 
-        this.bindPgCourses()
-        this.bindDiplomaCourses()
-        this.bindDoctorialCourses()
+        // this.bindPgCourses()
+        // this.bindDiplomaCourses()
+        // this.bindDoctorialCourses()
         this.bindPostDoctorialCourses()
-        this.bindAdvMasterCourses()
-        this.bindOtherCourses()
+        // this.bindAdvMasterCourses()
+        // this.bindOtherCourses()
       }, 5000);
     }
   }
@@ -891,24 +891,40 @@ export class CoarsesComponent implements OnInit {
   // ---------------------------------UG Courses---------------------------------//
 
   getUGCourses() {
-    this.campusService.getUGCourses(this.coursesForm.value.searchUg).subscribe((res) => {
+    this.collegeid = this.collegeDetails.id
+    this.campusService.getUGCourses(this.coursesForm.value.searchUg,this.collegeid).subscribe((res) => {
       this.UGCourseslist = res.response_data;
       console.log(this.UGCourseslist);
-      if ((this.clgId != null)) {
-        this.Loader = true
-        setTimeout(() => {
+      // if ((this.clgId != null)) {
+      //   this.Loader = true
+      //   setTimeout(() => {
 
-          this.bindUgCourses();
-        })
-      }
+      //     this.bindUgCourses();
+      //   })
+      // }
+      this.UGCourseslist.forEach((itemm) => {
+
+        // console.log(JSON.stringify(itemm));
+        if (itemm.CIds != 0) {
+        
+          console.log(itemm)
+          this.selectedUGCourses.push(itemm);
+          // this.changeUGSelection;
+        }
+      });
+      this.coursesForm.get('ugcourse').setValue(this.selectedUGCourses);
+      this.changeUGSelection(this.coursesForm.value.ugcourse);
+      this.Loader = true
+
 
     })
   }
 
   searchUGCourses() {
-  
+    const collegeid = this.collegeDetails.id
+
     const searchValue = this.coursesForm.value.searchUg.toLowerCase();
-    this.campusService.getUGCourses(searchValue).subscribe((res) => {
+    this.campusService.getUGCourses(searchValue,collegeid).subscribe((res) => {
       this.UGCourseslist = res.response_data;
       console.log(this.UGCourseslist);
       this.UGCourseslist = this.UGCourseslist.filter(course => 
@@ -1038,9 +1054,22 @@ export class CoarsesComponent implements OnInit {
   // ---------------------------------PG Courses---------------------------------//
 
   getPGCourses() {
-    this.campusService.getPGCourses(this.coursesForm.value.searchPg).subscribe((res) => {
+    this.collegeid = this.collegeDetails.id
+
+    this.campusService.getPGCourses(this.coursesForm.value.searchPg,this.collegeid).subscribe((res) => {
       this.PGCourseslist = res.response_data
-    })
+      this.PGCourseslist.forEach((item) => {
+      if (item.CIds != 0) {
+        this.selectedPGCourses.push(item);
+        // this.changePGSelection;
+      }
+    });
+    this.coursesForm.get('pgcourse').setValue(this.selectedPGCourses);
+    this.changePGSelection(this.coursesForm.value.pgcourse);
+    this.Loader = true
+
+  })
+    
   }
 
   bindPgCourses() {
@@ -1129,10 +1158,24 @@ export class CoarsesComponent implements OnInit {
   // ---------------------------------Diploma Courses---------------------------------//
 
   getDiplomaCourse() {
-    this.campusService.getDiplomaCourses(this.coursesForm.value.searchDp).subscribe((res) => {
-      this.DiplomaCourseslist = res.response_data
+    this.collegeid = this.collegeDetails.id
 
+    this.campusService.getDiplomaCourses(this.coursesForm.value.searchDp,this.collegeid).subscribe((res) => {
+      this.DiplomaCourseslist = res.response_data
+      this.DiplomaCourseslist.forEach((item) => {
+
+        if (item.CIds != 0) {
+          this.selectedDiplomaCourses.push(item);
+          // this.changeDiplomaSelection;
+
+        }
+      });
+      this.coursesForm.get('diplomacourse').setValue(this.selectedDiplomaCourses);
+      this.changeDiplomaSelection(this.coursesForm.value.diplomacourse);
+      this.Loader = true
     })
+
+    
   }
 
   bindDiplomaCourses() {
@@ -1221,10 +1264,24 @@ export class CoarsesComponent implements OnInit {
   // ---------------------------------Doctorial Courses---------------------------------//
 
   getDoctorialCourses() {
-    this.campusService.getDoctorialCourses(this.coursesForm.value.searchDoc).subscribe((res) => {
-      this.DoctorialCourseslist = res.response_data
+    this.collegeid = this.collegeDetails.id
 
+    this.campusService.getDoctorialCourses(this.coursesForm.value.searchDoc,this.collegeid).subscribe((res) => {
+      this.DoctorialCourseslist = res.response_data
+      this.DoctorialCourseslist.forEach((item) => {
+
+        if (item.CIds != 0) {
+          this.selectedDoctorialCourses.push(item);
+          // this.changeDoctorialSelection;
+
+        }
+      });
+      this.coursesForm.get('doctorialcourse').setValue(this.selectedDoctorialCourses);
+      this.changeDoctorialSelection(this.coursesForm.value.doctorialcourse);
+      this.Loader = true
     })
+
+    
   }
 
   changeDoctorialSelection(selectedCourses: any[]) {
@@ -1404,9 +1461,23 @@ export class CoarsesComponent implements OnInit {
   // ---------------------------------Adv Master Courses---------------------------------//
 
   getAdvMasterCourses() {
-    this.campusService.getAdvMasterCourses(this.coursesForm.value.searcAdvMas).subscribe((res) => {
+    this.collegeid = this.collegeDetails.id
+
+    this.campusService.getAdvMasterCourses(this.coursesForm.value.searcAdvMas,this.collegeid).subscribe((res) => {
       this.advMasteCourseslist = res.response_data
+      this.advMasteCourseslist.forEach((itemm) => {
+
+        if (itemm.CIds != 0) {
+          this.selectedAdvMasterrCourses.push(itemm);
+          // this.changeAdvMasterSelection;
+
+        }
+      });
+      this.coursesForm.get('advancedmastercourse').setValue(this.selectedAdvMasterrCourses);
+      this.changeAdvMasterSelection(this.coursesForm.value.advancedmastercourse);
+      this.Loader = true
     })
+    
   }
 
   changeAdvMasterSelection(selectedCourses: any[]) {
@@ -1496,10 +1567,24 @@ export class CoarsesComponent implements OnInit {
   // ---------------------------------Other Courses---------------------------------//
 
   getOtherCourses() {
-    this.campusService.getOtherCourses(this.coursesForm.value.searchOther).subscribe((res) => {
+    this.collegeid = this.collegeDetails.id
+    this.campusService.getOtherCourses(this.coursesForm.value.searchOther,this.collegeid).subscribe((res) => {
       this.OtherCourseslist = res.response_data
+      this.OtherCourseslist.forEach((itemm) => {
+
+        if (itemm.CIds != 0) {
+          this.selectedOherCourses.push(itemm);
+          // this.changeOtherSelection;
+
+        }
+      });
+      this.coursesForm.get('othercourse').setValue(this.selectedOherCourses);
+      this.changeOtherSelection(this.coursesForm.value.othercourse);
+      this.Loader = true
+
     })
   }
+    
 
   bindOtherCourses() {
     if (this.OtherCourseslist != undefined) {

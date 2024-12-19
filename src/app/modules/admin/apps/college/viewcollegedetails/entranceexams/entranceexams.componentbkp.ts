@@ -151,14 +151,121 @@ export class EntranceexamsComponent implements OnInit {
        
         this.getExamList(examIndex);
     }
+    // getexams(examIndex)
+    // {
+    //     alert(345678)
+    //     this.searchLoader[examIndex] = true;
+    //     let subcat = this.examArrayData().controls[examIndex].get('subcat').value;
+    //     if(subcat !='')
+    //     {
+    //         subcat = '';
+    //     }
+    //    let search_exam = this.examArrayData().controls[examIndex].get('search_exam').value;
+    //     if (search_exam != "") {
+    //         setTimeout(() => {
+    //             this.campusService.getExams(search_exam, subcat).subscribe((res) => {
+    //                 this.examlist = res.response_data;
+    //                 this.searchLoader[examIndex] = false;
 
+    //                 console.log(this.examlist)
+    //                 console.log("aaaa"+JSON.stringify(this.examlist))
+    //                 this.filteredExams.next(this.examlist.slice());
+    //                 this.entranceExamDetails.forEach((item, index) => {
+    //                     let examIds = item.entrance_exams.split(',');
+    //                     if (search_exam == "") {
+    //                         // alert(234567890)
+    //                         let selectedExams = [];
+    //                         examIds.forEach((itemm) => {
+    //                             let matchingExam = this.examlist.find(examItem => examItem.exams_id === itemm);
+    //                             if (matchingExam) {
+
+    //                                 selectedExams.push(matchingExam);
+    //                                 console.log(selectedExams)
+    //                             }
+
+    //                         });
+
+    //                         const exams = this.examArrayData().at(examIndex).get('examids');
+
+    //                         if (exams) {
+    //                             exams.setValue(this.selectExam[examIndex]);
+
+    //                         }
+    //                         this.examArrayData().controls[index].get('examids').setValue(selectedExams);
+
+    //                         console.log(selectedExams)
+
+    //                     }
+    //                 });
+
+    //             });
+
+    //         }, 1000);
+    //     } else {
+    //         setTimeout(() => {
+    //             this.campusService.getExams(search_exam, subcat).subscribe((res) => {
+    //                 console.log(this.examArrayData().controls[examIndex].get('subcat').value)
+    //                 this.examlist = res.response_data;
+    //                 this.searchLoader[examIndex] = false;
+
+    //                 // console.log(this.examlist)
+    //                 // console.log(this.entranceExamDetails)
+    //                 this.filteredExams = this.examlist;
+    //                 // this.filteredExams.next(this.examlist.slice());
+    //                 console.log(this.entranceExamDetails)
+    //                 let allExamIds = [];
+
+    //                 this.entranceExamDetails.forEach((item, index) => {
+    //                     let examIds = item.entrance_exams.split(',');
+    //                     allExamIds = allExamIds.concat(item.entrance_exams.split(','));
+    //                     console.log("All Exam IDs:", allExamIds);
+
+    //                     console.log(examIds);
+    //                     let selectedExams = [];
+    //                     console.log(this.examlist)
+    //                     allExamIds.forEach((itemm) => {
+    //                         let matchingExam = this.examlist.find(examItem => examItem.exams_id === itemm);
+    //                         console.log('matchingExam',matchingExam)
+
+    //                         if (matchingExam) {
+    //                             selectedExams.push(matchingExam);
+                                
+
+    //                         }
+
+    //                     });
+
+    //                     this.selectExam[index] = selectedExams;
+
+
+
+    //                     const exams = this.examArrayData().at(examIndex).get('examids');
+
+    //                     if (exams) {
+    //                         exams.setValue(this.selectExam[examIndex]);
+    //                     }
+    //                     console.log(selectedExams)
+
+    //                     this.examArrayData().controls[index].get('examids').setValue(selectedExams);
+
+    //                 });
+    //             });
+
+
+    //         }, 1000);
+    //     }
+
+    // }
     getExamList(examIndex) {
+        
+        // examIndex = '';
         this.searchLoader[examIndex] = true;
-
+        let subcat = this.examArrayData().controls[examIndex].get('subcat').value;
+        
         let search_exam = this.examArrayData().controls[examIndex].get('search_exam').value;
         if (search_exam != "") {
             setTimeout(() => {
-                this.campusService.getExams(search_exam, this.examArrayData().controls[examIndex].get('subcat').value).subscribe((res) => {
+                this.campusService.getExams(search_exam, subcat).subscribe((res) => {
                     this.examlist = res.response_data;
                     this.searchLoader[examIndex] = false;
 
@@ -168,7 +275,7 @@ export class EntranceexamsComponent implements OnInit {
                     this.entranceExamDetails.forEach((item, index) => {
                         let examIds = item.entrance_exams.split(',');
                         if (search_exam == "") {
-                            alert(234567890)
+                            // alert(234567890)
                             let selectedExams = [];
                             examIds.forEach((itemm) => {
                                 let matchingExam = this.examlist.find(examItem => examItem.exams_id === itemm);
@@ -198,7 +305,7 @@ export class EntranceexamsComponent implements OnInit {
             }, 1000);
         } else {
             setTimeout(() => {
-                this.campusService.getExams(search_exam, this.examArrayData().controls[examIndex].get('subcat').value).subscribe((res) => {
+                this.campusService.getExams(search_exam, subcat).subscribe((res) => {
                     console.log(this.examArrayData().controls[examIndex].get('subcat').value)
                     this.examlist = res.response_data;
                     this.searchLoader[examIndex] = false;
@@ -207,19 +314,24 @@ export class EntranceexamsComponent implements OnInit {
                     // console.log(this.entranceExamDetails)
                     this.filteredExams = this.examlist;
                     // this.filteredExams.next(this.examlist.slice());
-                    console.log
+                    console.log(this.entranceExamDetails)
+                    let allExamIds = [];
+
                     this.entranceExamDetails.forEach((item, index) => {
                         let examIds = item.entrance_exams.split(',');
+                        allExamIds = allExamIds.concat(item.entrance_exams.split(','));
+                        console.log("All Exam IDs:", allExamIds);
+
                         console.log(examIds);
                         let selectedExams = [];
-
-                        examIds.forEach((itemm) => {
+                        console.log(this.examlist)
+                        allExamIds.forEach((itemm) => {
                             let matchingExam = this.examlist.find(examItem => examItem.exams_id === itemm);
-                            console.log(matchingExam)
+                            console.log('matchingExam',matchingExam)
 
                             if (matchingExam) {
                                 selectedExams.push(matchingExam);
-                                //  alert("22222"+JSON.stringify(matchingExam))
+                                
 
                             }
 
